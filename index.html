@@ -3,128 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>मेरो अधुरो प्रेमकथा</title>
+    <title>शब्दभित्रको घाउ</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        :root {
+            --bg: #0f0c29;
+            --accent: #ff4b2b;
+            --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
 
         body {
             margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e94560;
-            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            padding: 50px 20px;
         }
 
-        .container {
-            max-width: 700px;
-            width: 90%;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            border: 1px solid rgba(233, 69, 96, 0.3);
+        .container { max-width: 800px; width: 100%; }
+
+        .header h1 {
+            font-size: 2.8rem;
             text-align: center;
-            backdrop-filter: blur(10px);
-            margin: 20px 0;
+            background: -webkit-linear-gradient(#ff416c, #ff4b2b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 40px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-bottom: 2px solid #e94560;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        .stanzas {
-            line-height: 1.8;
+        .poetry-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent);
+            line-height: 2;
             font-size: 1.2rem;
-            color: #f1f1f1;
+            white-space: pre-line;
+            margin-bottom: 20px;
+            position: relative;
         }
 
-        .stanza {
-            margin-bottom: 30px;
-            animation: fadeIn 2s ease-in;
+        /* New Action Buttons Styles */
+        .actions {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            justify-content: flex-end;
         }
 
-        .highlight {
-            color: #e94560;
-            font-weight: 600;
+        .action-btn {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        footer {
-            margin-top: 40px;
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
+        .action-btn:hover { background: var(--accent); }
+
+        .comment-section {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            box-sizing: border-box;
+        }
+
+        button.post-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        #commentDisplay {
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        .comment-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive design for mobile */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .stanzas { font-size: 1rem; }
-            .container { padding: 20px; }
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
+
+        .comment-item strong { color: var(--accent); }
+        .timestamp { font-size: 0.8rem; color: #bbb; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>अधुरो प्रेमकथा</h1>
+    <div class="header">
+        <h1>शब्दभित्रको घाउ</h1>
+    </div>
 
-    <div class="stanzas">
-        <div class="stanza">
-            अकस्मात एक साँझ टेक्स्टबाट कुरा सुरु भयो,<br>
-            अञ्जान ती शब्दहरूमा एउटा संसार सुरु भयो।<br>
-            हरेक पल, हरेक भावनाका कुराहरू साटिए,<br>
-            थाहै नपाई मेरा सारा खुसी उनकै नाममा बाँटिए।
-        </div>
+    <div class="poetry-card" id="poetryContent">
+        अकस्मात एक साँझ टेक्स्टबाट कुरा सुरु भयो,
+        अञ्जान ती शब्दहरूमा एउटा संसार सुरु भयो।
+        हरेक पल, हरेक भावनाका कुराहरू साटिए,
+        थाहै नपाई मेरा सारा खुसी उनकै नाममा बाँटिए।
 
-        <div class="stanza">
-            त्यही प्रेमको मीठो गुन्जनमा एउटा वर्ष बितेछ,<br>
-            भन्न खोज्ने मेरो ओठ, डरले सधैँ चुकेछ।<br>
-            एकदिन अचानक उनको <span class="highlight">भिडियो कल</span> आयो,<br>
-            उनका ती निर्दोष आँखाले मेरो होस नै उडायो।
-        </div>
+        त्यही प्रेमको मीठो गुन्जनमा एउटा वर्ष बितेछ,
+        भन्न खोज्ने मेरो ओठ, डरले सधैँ चुकेछ।
+        एकदिन अचानक उनको भिडियो कल आयो,
+        उनका ती निर्दोष आँखाले मेरो होस नै उडायो।
 
-        <div class="stanza">
-            हिम्मत जुटाएर मनको सारा व्यथा खोलिदिएँ,<br>
-            वर्षौँदेखि साचेको प्रेमको प्रस्ताव राखिदिएँ।<br>
-            "अहिले उमेर छैन" भन्दै सुरुमा त तर्किएकी थिइन्,<br>
-            तर "माया त तिमीसँगै गर्छु" भन्दै अन्ततः उनले पनि स्विकारिन्।
-        </div>
+        हिम्मत जुटाएर मनको सारा व्यथा खोलिदिएँ,
+        वर्षौँदेखि साचेको प्रेमको प्रस्ताव राखिदिएँ।
+        "अहिले उमेर छैन" भन्दै सुरुमा त तर्किएकी थिइन्,
+        तर "माया त तिमीसँगै गर्छु" भन्दै अन्ततः उनले पनि स्विकारिन्।
 
-        <div class="stanza">
-            मैले <span class="highlight">'I Love You'</span> भन्दा उनले मुसुक्क मुस्कुराउँदै,<br>
-            'I Love You Too' भनिन्, मेरो संसार नै सजाउँदै।<br>
-            तर भाग्यको पानामा हाम्रो मिलन लेखिएको रहेनछ,<br>
-            त्यो छोटो खुसीको आयु धेरै लामो भएनछ।
-        </div>
+        समयको गतिसँगै हाम्रो सम्बन्ध अझै गाढा भयो,
+        साथीबाट सुरु भएको यात्रा, अब प्रेमको बाटोमा गयो।
+        फेरि एकपटक 'I Love You' को गुञ्जन हाम्रो बीचमा भयो,
+        मैले मुटु दिएँ, उनले पनि आफ्नो संसार सुम्पिएर गइन्।
 
-        <div class="stanza">
-            ११ को नतिजामा जब उनी असफल भइन्,<br>
-            मेरो जिन्दगीको अँध्यारो दिनहरू त्यहीँबाट सुरु भए।<br>
-            "मेरो बहिनी मलाई फर्काइदेऊ"– दिदीको त्यो आदेश आयो,<br>
-            मेरो पवित्र प्रेममा, समाजको एउटा ठूलो अवरोध आयो।
-        </div>
+        तर भाग्यको खेल बुझ्न सायद हामीलाई बाँकी नै थियो,
+        हाम्रो मिलनको खुसी त केवल केही दिनको पाहुना थियो।
+        ११ को नतिजामा जब उनी असफल भइन्,
+        मेरो जिन्दगीको अँध्यारो दिनहरू त्यहीँबाट सुरु भए।
 
-        <div class="stanza">
-            अन्तिम पटक आफ्नो मायालाई आँखा भरि हेरेर बिदा भएँ,<br>
-            त्यो दिनदेखि म एउटा <span class="highlight">'प्रेमी' बाट 'शायर'</span> मा बदलिएँ।
-        </div>
+        "मेरो बहिनी मलाई फर्काइदेऊ"– दिदीको त्यो आदेश आयो,
+        मेरो पवित्र प्रेममा, समाजको एउटा ठूलो अवरोध आयो।
+        अन्तिम पटक आफ्नो मायालाई आँखा भरि हेरेर बिदा भएँ,
+        वो दिनदेखि म एउटा 'प्रेमी' बाट 'शायर' मा बदलिएँ।
+    </div>
 
+    <div class="actions">
+        <button class="action-btn" onclick="likePoetry()">
+            ❤️ <span id="likeCount">०</span> मन पर्यो
+        </button>
+        <button class="action-btn" onclick="copyPoetry()">
+            📋 कपी गर्नुहोस्
+        </button>
+    </div>
+
+    <div class="comment-section">
+        <h3>प्रतिक्रिया दिनुहोस्</h3>
+        <input type="text" id="nameInput" placeholder="तपाईँको नाम">
+        <textarea id="msgInput" placeholder="तपाईँको विचार यहाँ लेख्नुहोस्..."></textarea>
+        <button class="post-btn" onclick="postComment()">पठाउनुहोस्</button>
+
+        <div id="commentDisplay">
+            </div>
+    </div>
+</div>
+
+<script>
+    let likes = 0;
+
+    function likePoetry() {
+        likes++;
+        document.getElementById('likeCount').innerText = likes;
+    }
+
+    function copyPoetry() {
+        const text = document.getElementById('poetryContent').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("शायरी कपी गरियो!");
+        });
+    }
+
+    function postComment() {
+        const name = document.getElementById('nameInput').value;
+        const msg = document.getElementById('msgInput').value;
+        const display = document.getElementById('commentDisplay');
+        
+        // Get current time
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        if(name && msg) {
+            const newComment = document.createElement('div');
+            newComment.classList.add('comment-item');
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <strong>${name}</strong>
+                    <span class="timestamp">${timeString}</span>
+                </div>
+                <div>${msg}</div>
+            `;
+            display.prepend(newComment);
+
+            // Clear inputs
+            document.getElementById('nameInput').value = '';
+            document.getElementById('msgInput').value = '';
+        } else {
+            alert("कृपया नाम र मेसेज दुवै लेख्नुहोस्।");
+        }
+    }
+</script>
 
 </body>
 </html>
-
